@@ -1,0 +1,59 @@
+<!-- Default form login -->
+<div class="row" style="margin-top: 3%;">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-6">
+    <mdb-card>
+      <mdb-card-body>
+        <!--Text-->
+        <mdb-card-text>
+          <!-- Default form register -->
+          <form class="text-center border border-light p-5" #formulaire="ngForm" name="form">
+
+            <p class="h4 mb-4">Register</p>
+
+            <input type="text" id="defaultRegisterFormNickname" class="form-control mb-4" placeholder="Nickname" ngModel
+              name="nickname" required>
+
+            <input type="password" id="defaultRegisterFormPassword" class="form-control mb-4" placeholder="Password"
+              aria-describedby="defaultRegisterFormPasswordHelpBlock" ngModel name="password" required>
+
+            <input type="password" id="defaultRegisterFormConfirm" class="form-control mb-4"
+              placeholder="Confirm password" ngModel name="confirmPassword" required>
+
+            <input type="email" id="defaultRegisterFormEmail" class="form-control mb-4" placeholder="E-mail" ngModel
+              name="email" required>
+
+            <input type="number" id="defaultRegisterPhone" class="form-control mb-4" placeholder="Phone number"
+              aria-describedby="defaultRegisterFormPhoneHelpBlock" ngModel name="phone" required>
+
+            <div class="row" style="margin-top: 3%;">
+              <div class="col-lg-4">
+                <mat-form-field appearance="fill">
+                  <mat-label>Country</mat-label>
+                  <mat-select ngModel name="country" required>
+                    <mat-option *ngFor="let country of countries" [value]="country">
+                      {{country}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="alert alert-danger" role="alert" *ngIf="formulaire.submitted && errorMessage">
+                <fa-icon [icon]="faBan"></fa-icon> {{ errorMessage }}
+              </div>
+            </div>
+
+            <!-- Sign up button -->
+            <button mdbBtn color="danger" class="my-4" [routerLink]="['/login']">Reset</button>
+            <button mdbBtn [disabled]="formulaire.invalid" type="submit" color="default" class="my-4"
+              (click)="addUser(formulaire)">Register</button>
+
+          </form>
+          <!-- Default form register -->
+          <!-- Default form login -->
+        </mdb-card-text>
+      </mdb-card-body>
+    </mdb-card>
+  </div>
+</div>

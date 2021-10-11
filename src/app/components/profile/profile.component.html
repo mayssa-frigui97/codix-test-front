@@ -1,0 +1,117 @@
+<div class="row" *ngIf="currentUser">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <!--Card-->
+    <mdb-card>
+
+      <!--Card image-->
+      <div class="view view-cascade overlay waves-light" mdbWavesEffect>
+        <mdb-card-img src="../../assets/images/profile.png"></mdb-card-img>
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <!--/Card image-->
+
+      <mdb-card-body class="text-center">
+        <!--Card content-->
+        <div class="row">
+          <div class="col-md-8">
+            <h4 class="card-title">
+              <strong>{{currentUser.nickname| titlecase}}</strong>
+            </h4>
+          </div>
+          <div class="col-md-4">
+            <button mdbBtn type="button" color="default" size="sm" mdbWavesEffect data-toggle="modal"
+            data-target="#basicExample" (click)="frame.show()">
+            <fa-icon [icon]="faPenSquare" class="mr"></fa-icon>Edit
+          </button>
+          <div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+          aria-labelledby="myModalLabel" aria-hidden="true" >
+          <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+              <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Edit Profile</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body mx-3">
+                <form #formulaire="ngForm">
+                  <div class="md-form mb-4">
+                    <fa-icon [icon]="faEnvelope" class="mr"></fa-icon>
+                    <label for="defaultForm-email"> Your email</label>
+                    <input type="email" id="defaultForm-email" [(ngModel)]="currentUser.email" name="email"
+                    class="form-control" mdbInput mdbValidate>
+                  </div>
+
+                  <div class="md-form mb-4">
+                    <fa-icon [icon]="faLock" class="mr"></fa-icon>
+                    <label for="defaultForm-pass"> Your password</label>
+                    <input type="password" id="defaultForm-pass" [(ngModel)]="currentUser.password" name="password"
+                    class="form-control" mdbInput mdbValidate>
+                  </div>
+
+                  <div class="md-form mb-4">
+                    <label for="defaultForm-pass"> Confirm password</label>
+                    <input type="password" id="defaultForm-confirm" [(ngModel)]="currentUser.confirmPassword" name="confirmPassword"
+                    class="form-control" mdbInput mdbValidate>
+                  </div>
+                  <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+                    {{errorMessage}}
+                  </div>
+                  <div class="md-form mb-4">
+                    <fa-icon [icon]="faPhone" class="mr"></fa-icon>
+                    <label for="defaultForm-pass"> Your phone number</label>
+                    <input type="number" id="defaultForm-phone" [(ngModel)]="currentUser.phone" name="phone"
+                    class="form-control" mdbInput mdbValidate>
+                  </div>
+
+                  <div class="md-form mb-4">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Country</mat-label>
+                      <mat-select [(ngModel)]="currentUser.country" name="country">
+                        <mat-option *ngFor="let country of countries" [value]="country">
+                          {{country}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="frame.hide()" mdbWavesEffect>Close</button>
+                    <button mdbBtn color="default" class="waves-light" mdbWavesEffect [disabled]="formulaire.invalid" type="submit" (click)="enregistrer(currentUser)">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h5>
+          <fa-icon [icon]="faEnvelope"></fa-icon> {{currentUser.email}}
+        </h5>
+
+        <mdb-card-text>
+          <h6>
+            <fa-icon [icon]="faPhone"></fa-icon> {{currentUser.phone}}
+          </h6>
+          <h6>
+            <fa-icon [icon]="faMapMarker"></fa-icon> {{currentUser.country| titlecase}}
+          </h6>
+        </mdb-card-text>
+
+      </mdb-card-body>
+      <!--/.Card content-->
+
+    </mdb-card>
+    <!--/.Card-->
+  </div>
+  <div class="col-md-4">
+    <button mdbBtn type="button" color="danger" mdbWavesEffect style="float: right;" [routerLink]="['/logout']" (click)="logout()">
+        <fa-icon [icon]="faSignOutAlt" class="mr"></fa-icon>Logout
+    </button>
+  </div>
+</div>
+
